@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { AlertTriangle, CheckCircle2, ChevronDown, Fish, LocateFixed, MapPin, Navigation, RefreshCw, Waves } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, Fish, LocateFixed, MapPin, Navigation, RefreshCw, Waves } from 'lucide-react';
 
 declare global {
   interface Window { L: any; }
@@ -279,7 +279,7 @@ export default function PFZAdvisory() {
       </section>}
 
       <section>
-        <div className="mb-2 flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-slate-400"><Waves className="h-3.5 w-3.5 text-cyan-400" />Live marine conditions used in ranking</div>
+        <div className="mb-2 flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-slate-400"><Waves className="h-3.5 w-3.5 text-cyan-400" />Live marine conditions used in ranking</div>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
           <Metric label="Satellite SST" value={`${fmt(data.live_conditions.satellite_sst_c, 2)} °C`} />
           <Metric label="Model SST" value={`${fmt(data.live_conditions.sst_c, 2)} °C`} />
@@ -288,29 +288,27 @@ export default function PFZAdvisory() {
           <Metric label="Ocean current" value={`${fmt(data.live_conditions.current_velocity_kmh, 2)} km/h`} />
           <Metric label="Current direction" value={data.live_conditions.current_direction_deg == null ? '—' : `${fmt(data.live_conditions.current_direction_deg, 0)}°`} />
         </div>
-        <div className="mt-2 text-[9px] text-slate-600">{data.live_conditions.satellite_sst_source || data.live_conditions.source || 'Live source status unavailable.'}</div>
+        <div className="mt-2 text-[10px] text-slate-600">{data.live_conditions.satellite_sst_source || data.live_conditions.source || 'Live source status unavailable.'}</div>
       </section>
 
       <PFZMap userLat={data.user_location.lat} userLon={data.user_location.lon} results={data.results} />
 
-      <section className="rounded-xl border border-slate-800 bg-slate-900/50 p-3">
-        <div className="mb-3 flex items-center justify-between"><div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Ranked PFZ advisories</div><div className="text-[9px] text-slate-500">{data.results.length} candidates</div></div>
-        <div className="space-y-2">
-          {data.results.map((pfz, index) => <div key={`${pfz.lat}-${pfz.lon}`} className={`rounded-lg border p-3 ${index === 0 ? 'border-emerald-500/35 bg-emerald-500/5' : 'border-slate-800 bg-slate-950/60'}`}>
+      <section className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
+        <div className="mb-4 flex items-center justify-between"><div className="text-sm font-bold uppercase tracking-wider text-slate-300">Ranked PFZ advisories</div><div className="text-xs text-slate-500">{data.results.length} candidates</div></div>
+        <div className="space-y-3">
+          {data.results.map((pfz, index) => <div key={`${pfz.lat}-${pfz.lon}`} className={`rounded-lg border p-4 ${index === 0 ? 'border-emerald-500/35 bg-emerald-500/5' : 'border-slate-800 bg-slate-950/60'}`}>
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <div className="flex items-center gap-2"><span className="rounded-full bg-slate-800 px-2 py-0.5 text-[9px] font-bold text-slate-300">#{pfz.rank}</span><span className="truncate text-xs font-bold text-slate-100">{pfz.from_coast || 'PFZ Advisory'}</span></div>
-                <div className="mt-1 flex items-center gap-2 text-[9px] text-slate-500"><MapPin className="h-3 w-3" />{pfz.lat.toFixed(4)}, {pfz.lon.toFixed(4)} · {pfz.state}</div>
+                <div className="flex items-center gap-2"><span className="rounded-full bg-slate-800 px-2.5 py-1 text-[11px] font-bold text-slate-300">#{pfz.rank}</span><span className="truncate text-sm font-bold text-slate-100">{pfz.from_coast || 'PFZ Advisory'}</span></div>
+                <div className="mt-1.5 flex items-center gap-2 text-[11px] text-slate-500"><MapPin className="h-3.5 w-3.5" />{pfz.lat.toFixed(4)}, {pfz.lon.toFixed(4)} · {pfz.state}</div>
               </div>
-              <div className="text-right"><div className="text-sm font-bold text-emerald-300">{fmt(pfz.distance_km)} km</div><div className="text-[9px] text-slate-500">score {fmt(pfz.rank_score, 0)}</div></div>
+              <div className="text-right"><div className="text-base font-bold text-emerald-300">{fmt(pfz.distance_km)} km</div><div className="text-[11px] text-slate-500">score {fmt(pfz.rank_score, 0)}</div></div>
             </div>
-            <div className="mt-2 grid grid-cols-3 gap-2 text-[9px] text-slate-400"><span>Bearing <b className="text-slate-200">{pfz.bearing_deg == null ? '—' : `${fmt(pfz.bearing_deg, 0)}°`}</b></span><span>Dir <b className="text-slate-200">{pfz.direction || '—'}</b></span><span>Depth <b className="text-slate-200">{pfz.depth_m || '—'}</b></span></div>
-            {pfz.reasons.length > 0 && <div className="mt-2 text-[9px] text-emerald-300/80">Why ranked: {pfz.reasons.join(' · ')}</div>}
+            <div className="mt-3 grid grid-cols-3 gap-2 text-[11px] text-slate-400"><span>Bearing <b className="text-slate-200">{pfz.bearing_deg == null ? '—' : `${fmt(pfz.bearing_deg, 0)}°`}</b></span><span>Dir <b className="text-slate-200">{pfz.direction || '—'}</b></span><span>Depth <b className="text-slate-200">{pfz.depth_m || '—'}</b></span></div>
+            {pfz.reasons.length > 0 && <div className="mt-3 text-[11px] leading-relaxed text-emerald-300/80">Why ranked: {pfz.reasons.join(' · ')}</div>}
           </div>)}
         </div>
       </section>
-
-      <section className="rounded-lg border border-slate-800 bg-slate-950/70 p-3 text-[9px] leading-relaxed text-slate-500"><div className="mb-1 flex items-center gap-1 font-bold text-slate-300"><ChevronDown className="h-3 w-3" />How this works</div>{data.method || 'The ranking starts from PFZ advisories, scores proximity and advisory freshness, then adjusts for live SST and wave conditions. Decision support only; not a guarantee of fish presence.'}</section>
     </>}
   </div>;
 }
