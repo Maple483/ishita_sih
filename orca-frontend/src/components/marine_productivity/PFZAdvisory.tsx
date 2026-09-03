@@ -45,8 +45,8 @@ type PFZResponse = {
 };
 
 const configuredApi = (import.meta as any).env?.VITE_API_URL as string | undefined;
-const API = configuredApi?.replace(/\/$/, '') ||
-  ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:8000' : '');
+// Keep PFZ on the same backend origin used by the existing ishita_sih marine-productivity feature.
+const API = configuredApi?.replace(/\/$/, '') || 'http://localhost:8000';
 
 const SAMPLE_LOCATIONS = [
   { name: 'Chennai coast', lat: 13.08, lon: 80.27 },
