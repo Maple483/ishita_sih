@@ -23,11 +23,8 @@ from .repository import get_repository
 from .scientific_interpreter import ScientificInterpreter
 from .analyst import TemplateNarrativeCompiler
 from .satellite import get_satellite_info
-from .pfz import router as pfz_router
 
 router = APIRouter(prefix="/api/marine-productivity", tags=["Marine Productivity"])
-# Keep the existing historical-analysis routes unchanged; add only the missing PFZ endpoint.
-router.include_router(pfz_router)
 
 
 COMPACT_NOTICE = (
