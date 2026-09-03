@@ -5,6 +5,7 @@
 (function () {
   const STYLE_ID = 'pfz-advisory-ui-enhancements';
   const ROOT_CLASS = 'pfz-advisory-ui';
+  const RANKED_CLASS = 'pfz-ranked-section';
 
   function addStyles() {
     if (document.getElementById(STYLE_ID)) return;
@@ -24,6 +25,23 @@
       .${ROOT_CLASS} input,
       .${ROOT_CLASS} select { font-size: 14px !important; padding-top: 10px !important; padding-bottom: 10px !important; }
       .${ROOT_CLASS} button { font-size: 13px !important; }
+
+      /* Make the Ranked PFZ advisories block and every item underneath it noticeably larger. */
+      .${RANKED_CLASS} { padding: 20px !important; }
+      .${RANKED_CLASS} > div:first-child { margin-bottom: 16px !important; }
+      .${RANKED_CLASS} > div:first-child > div:first-child { font-size: 14px !important; line-height: 1.4 !important; }
+      .${RANKED_CLASS} > div:first-child > div:last-child { font-size: 12px !important; }
+      .${RANKED_CLASS} > div.space-y-2 { gap: 12px !important; }
+      .${RANKED_CLASS} > div.space-y-2 > div { padding: 16px !important; }
+      .${RANKED_CLASS} > div.space-y-2 > div span.rounded-full { font-size: 12px !important; padding: 4px 9px !important; }
+      .${RANKED_CLASS} > div.space-y-2 > div span.truncate { font-size: 15px !important; line-height: 1.4 !important; }
+      .${RANKED_CLASS} > div.space-y-2 > div svg { width: 14px !important; height: 14px !important; }
+      .${RANKED_CLASS} > div.space-y-2 > div .text-right > div:first-child { font-size: 16px !important; line-height: 1.35 !important; }
+      .${RANKED_CLASS} > div.space-y-2 > div .text-right > div:last-child { font-size: 12px !important; }
+      .${RANKED_CLASS} > div.space-y-2 > div > div:nth-child(2) { font-size: 12px !important; line-height: 1.5 !important; }
+      .${RANKED_CLASS} > div.space-y-2 > div > div:nth-child(3) { font-size: 12px !important; line-height: 1.5 !important; }
+      .${RANKED_CLASS} > div.space-y-2 > div > div:nth-child(3) b { font-size: 13px !important; }
+      .${RANKED_CLASS} > div.space-y-2 > div > div:last-child { font-size: 12px !important; line-height: 1.55 !important; }
     `;
     document.head.appendChild(style);
   }
@@ -41,7 +59,13 @@
 
     root.querySelectorAll('section').forEach((section) => {
       const text = section.textContent?.trim() || '';
-      if (text.startsWith('How this works')) section.remove();
+      if (text.startsWith('How this works')) {
+        section.remove();
+        return;
+      }
+      if (text.startsWith('Ranked PFZ advisories')) {
+        section.classList.add(RANKED_CLASS);
+      }
     });
 
     addStyles();
