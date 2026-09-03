@@ -309,6 +309,37 @@ export default function PFZAdvisory() {
           </div>)}
         </div>
       </section>
+
+      <section className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 sm:p-5">
+        <div className="mb-3 text-sm font-bold tracking-wide text-slate-200 sm:text-base">How the PFZ advisory is generated</div>
+        <p className="mb-4 text-[12px] leading-relaxed text-slate-400 sm:text-[13px]">
+          This is a <span className="font-semibold text-slate-200">decision-support ranking</span>, not a machine-learning prediction of fish abundance. The system starts with the available PFZ advisory locations and ranks them for the fisherman’s entered location.
+        </p>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-3">
+            <div className="text-[13px] font-bold text-slate-200">1. Fisherman location</div>
+            <div className="mt-1.5 text-[12px] leading-relaxed text-slate-400">Latitude and longitude are used to calculate the distance to each advisory location.</div>
+          </div>
+          <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-3">
+            <div className="text-[13px] font-bold text-slate-200">2. Proximity — 55% of base score</div>
+            <div className="mt-1.5 text-[12px] leading-relaxed text-slate-400">Advisory locations closer to the fisherman receive a higher base ranking score.</div>
+          </div>
+          <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-3">
+            <div className="text-[13px] font-bold text-slate-200">3. Advisory freshness — 45% of base score</div>
+            <div className="mt-1.5 text-[12px] leading-relaxed text-slate-400">Forecast-validity dates are checked so current advisories rank higher and older advisories are progressively down-weighted.</div>
+          </div>
+          <div className="rounded-lg border border-slate-800 bg-slate-950/60 p-3">
+            <div className="text-[13px] font-bold text-slate-200">4. Live sea conditions</div>
+            <div className="mt-1.5 text-[12px] leading-relaxed text-slate-400">Wave height adjusts the score: calmer conditions improve it and high waves reduce it. Live SST also gives a small positive adjustment when it falls in the broad 22–30°C range.</div>
+          </div>
+        </div>
+        <div className="mt-3 rounded-lg border border-slate-800 bg-slate-950/50 p-3 text-[12px] leading-relaxed text-slate-400">
+          <span className="font-semibold text-slate-200">Displayed operational information:</span> bearing, direction, advisory distance, depth, wave period, ocean-current speed and current direction help the fisherman interpret the recommendation, but they are not independent ranking weights in the current score.
+        </div>
+        <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-500/5 p-3.5 text-[12px] leading-relaxed text-amber-200 sm:text-[13px]">
+          <span className="font-bold">Important:</span> A PFZ advisory identifies relatively preferable fishing locations from the available advisory and environmental information. It <span className="font-bold">does not guarantee fish presence, catch quantity, or safety</span>. Actual fish distribution and catch depend on many factors that are not fully modeled here, including fish movement, fishing effort and gear, weather, local sea conditions, and other ecological factors. Use this as decision support together with official marine-weather and safety guidance.
+        </div>
+      </section>
     </>}
   </div>;
 }
